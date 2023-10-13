@@ -1,4 +1,4 @@
-package com.company.payload;
+package com.company.entity;
 
 import com.company.entity.template.AbstractEntity;
 import lombok.AllArgsConstructor;
@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @AllArgsConstructor
@@ -15,7 +18,11 @@ import java.util.Collection;
 @Data
 @Entity
 public class Admin extends AbstractEntity implements UserDetails {
+    @NotBlank(message = "username bush bulmasin")
+    @Column(nullable = false)
     private String username;
+    @NotBlank(message = "password bush bulmasin")
+    @Column(nullable = false)
     private String password;
 
     @Override

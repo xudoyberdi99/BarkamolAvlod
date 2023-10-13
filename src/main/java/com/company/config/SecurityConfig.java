@@ -2,7 +2,9 @@ package com.company.config;
 
 import com.company.security.JwtFilter;
 import com.company.service.serviceImpl.AuthService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 
 @Configuration
@@ -45,13 +48,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .csrf().disable()
+                .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**","/api/user/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/api/connect/**").permitAll()
+                .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources", "/swagger-resources/**", "/v2/**", "/csrf").permitAll()
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                .httpBasic().disable()
+                .formLogin().disable();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
 
 }

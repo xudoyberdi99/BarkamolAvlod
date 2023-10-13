@@ -1,5 +1,6 @@
 package com.company.entity.template;
 
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -7,10 +8,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @MappedSuperclass
+@Data
 public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(updatable = false,nullable = false)
     @CreationTimestamp

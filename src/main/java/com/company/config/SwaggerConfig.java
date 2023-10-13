@@ -1,4 +1,4 @@
-package uz.zako.zakoBackend.config;
+package com.company.config;
 
 import org.apache.tomcat.websocket.Constants;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,7 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,12 +30,12 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("uz.zako.zakoBackend.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.company.controller"))
                 .paths(regex("/.*"))
                 .build()
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(Collections.singletonList(apiKey()))
-                .apiInfo(new ApiInfo("Zako Backend","for github project","1.0.0.3","no service","+9989999999","no license","no url"));
+                .apiInfo(new ApiInfo("BarkamolAvlod","for github project","1.0.0.3","no service","+9989999999","no license","no url"));
     }
 
     @Override
